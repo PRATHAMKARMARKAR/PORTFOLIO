@@ -492,7 +492,7 @@ function HeroWindow() {
         <div className="pk-hero-links">
           <a href="mailto:karmarkarpratham46@gmail.com" className="pk-btn pk-btn-primary">✉ get in touch</a>
           <a href="https://github.com/PRATHAMKARMARKAR" className="pk-btn pk-btn-ghost">⌥ github</a>
-          <a href="https://www.linkedin.com/in/pratham-karmarkar-6b786a293/" className="pk-btn pk-btn-ghost">⌘ linkedin</a>
+          <a href="https://www.linkedin.com/public-profile/settings/?trk=d_flagship3_profile_self_view_public_profile&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BHKwx7jB3TxCT5D9ZR7dgIQ%3D%3D" className="pk-btn pk-btn-ghost">⌘ linkedin</a>
         </div>
       </div>
     </Window>
