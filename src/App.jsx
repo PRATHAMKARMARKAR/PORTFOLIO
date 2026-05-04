@@ -1,0 +1,191 @@
+import { useState, useEffect, useRef } from "react";
+
+const CSS = `
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
+.pk-root *,.pk-root *::before,.pk-root *::after{margin:0;padding:0;box-sizing:border-box;}
+
+.pk-root{
+  --bg:#141414;
+  --bg2:#1a1a1a;
+  --bg3:#1f1f1f;
+  --surface:#252525;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.12);
+  --text:#e8e8e8;
+  --text2:#a0a0a0;
+  --text3:#555;
+  --green:#3ddc84;
+  --green2:#2ab970;
+  --blue:#5ac8fa;
+  --purple:#bf5af2;
+  --orange:#ff9f0a;
+  --red:#ff453a;
+  --yellow:#ffd60a;
+  --pink:#ff6b9d;
+  --mono:'JetBrains Mono',monospace;
+  font-family:var(--mono);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* MENU */
+.pk-menubar{
+  position:fixed;top:0;left:0;right:0;height:28px;
+  background:rgba(20,20,20,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 16px;
+  z-index:999;
+}
+.pk-menubar-right{margin-left:auto;color:var(--text2);}
+
+/* LAYOUT */
+.pk-desktop{
+  padding-top:48px;
+  max-width:860px;
+  margin:0 auto;
+  padding-left:24px;
+  padding-right:24px;
+}
+
+/* WINDOW */
+.pk-window{
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:24px;
+}
+
+.pk-titlebar{
+  height:36px;
+  background:var(--bg3);
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  gap:10px;
+}
+
+.pk-traffic{display:flex;gap:6px;}
+.pk-t-red,.pk-t-yellow,.pk-t-green{
+  width:12px;height:12px;border-radius:50%;
+}
+.pk-t-red{background:#ff5f57;}
+.pk-t-yellow{background:#febc2e;}
+.pk-t-green{background:#28c840;}
+
+.pk-win-title{font-size:12px;color:var(--text3);}
+
+/* HERO */
+.pk-hero-art{padding:40px;}
+.pk-hero-name{
+  font-size:48px;
+}
+.pk-hero-name span{color:var(--green);}
+.pk-hero-links{display:flex;gap:10px;margin-top:20px;}
+
+.pk-btn{
+  font-size:12px;
+  padding:8px 18px;
+  border-radius:6px;
+  text-decoration:none;
+}
+
+.pk-btn-primary{
+  background:var(--green);
+  color:black;
+}
+
+.pk-btn-ghost{
+  border:1px solid var(--border2);
+  color:var(--text2);
+}
+`;
+
+function Traffic(){
+  return(
+    <div className="pk-traffic">
+      <span className="pk-t-red"/>
+      <span className="pk-t-yellow"/>
+      <span className="pk-t-green"/>
+    </div>
+  );
+}
+
+function Window({title,children}){
+  return(
+    <div className="pk-window">
+      <div className="pk-titlebar">
+        <Traffic/>
+        <div className="pk-win-title">{title}</div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function Hero(){
+  return(
+    <Window title="pratham@portfolio">
+      <div className="pk-hero-art">
+        <div className="pk-hero-name">
+          Pratham <span>Karmarkar</span>
+        </div>
+
+        <div className="pk-hero-links">
+          <a href="mailto:karmarkarpratham46@gmail.com" className="pk-btn pk-btn-primary">
+            Email
+          </a>
+
+          <a 
+            href="https://github.com/PRATHAMKARMARKAR"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pk-btn pk-btn-ghost"
+          >
+            GitHub
+          </a>
+
+          <a 
+            href="https://www.linkedin.com/in/pratham-karmarkar-6b786a293/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pk-btn pk-btn-ghost"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </Window>
+  );
+}
+
+export default function App(){
+  const [clock,setClock]=useState("");
+
+  useEffect(()=>{
+    const update=()=>{
+      setClock(new Date().toLocaleTimeString());
+    };
+    update();
+    const t=setInterval(update,1000);
+    return()=>clearInterval(t);
+  },[]);
+
+  return(
+    <div className="pk-root">
+      <style>{CSS}</style>
+
+      <div className="pk-menubar">
+        <div className="pk-menubar-right">{clock}</div>
+      </div>
+
+      <div className="pk-desktop">
+        <Hero/>
+      </div>
+    </div>
+  );
+}
